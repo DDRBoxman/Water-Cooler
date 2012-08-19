@@ -1,0 +1,16 @@
+{{define "userlist"}}
+<div class="users">
+{{range .}}
+	<a href="/water/{{.UserId}}">
+	{{template "profile" .}}
+	</a>
+{{end}}
+	<a href="/auth">
+	<div class="profile">
+		<img src="/img/newuser.png"/>
+		<h4><span>New User</span></h4>
+	</div>
+	</a>
+<div class="clear"></div>
+</div>
+{{end}}

@@ -1,0 +1,41 @@
+{{define "begin"}}
+<html>
+<head>
+	<title>Water Cooler</title>
+	<link href="/css/main.css" rel="stylesheet" type="text/css">
+        <link href='http://fonts.googleapis.com/css?family=Arimo' rel='stylesheet' type='text/css'>
+        <link href='http://fonts.googleapis.com/css?family=Pacifico' rel='stylesheet' type='text/css'>
+        <meta name = "viewport" content = "initial-scale = 1.0, user-scalable = no">
+	<meta name="apple-mobile-web-app-capable" content="yes" />
+
+	<link rel="apple-touch-icon-precomposed" sizes="57x57" href="/img/apple-touch-icon-57x57.png">
+	<link rel="apple-touch-icon-precomposed" sizes="72x72" href="/img/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon-precomposed" sizes="114x114" href="/img/apple-touch-icon-114x114.png">
+	<link rel="apple-touch-icon-precomposed" sizes="144x144" href="/img/apple-touch-icon-144x144.png">
+</head>
+<body>
+<div class="container">
+<a href="/">
+<h1>Water Cooler</h1>
+</a>
+{{end}}
+{{define "end"}}
+<div class="footer">
+Whee :D
+</div>
+</div>
+</body>
+</html>
+<script type="text/javascript">
+var a=document.getElementsByTagName("a");
+for(var i=0;i<a.length;i++) {
+    if(!a[i].onclick && a[i].getAttribute("target") != "_blank") {
+        a[i].onclick=function() {
+                window.location=this.getAttribute("href");
+                return false; 
+        }
+    }
+}
+</script>
+
+{{end}}

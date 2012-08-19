@@ -1,0 +1,10 @@
+{{define "water"}}
+	{{template "profile" .User}}
+	{{$userId := .User.UserId}}
+	{{range .Water}}
+	<a href="/water/{{$userId}}/{{.Size}}">
+	{{template "profile" .}}
+	</a>
+	{{end}}
+	<div class="clear"></div>
+{{end}}

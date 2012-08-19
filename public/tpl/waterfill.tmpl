@@ -1,0 +1,7 @@
+{{define "waterfill"}}
+	{{template "profile" .User}}
+	<div class="waterfill">
+		<div class="waterlevel" style="height: {{.Percent}}%"></div>
+		<img src="/img/waterfill.png"/>
+	</div>
+{{end}}
