@@ -2,6 +2,7 @@ package models
 
 import (
 	"database/sql"
+	"github.com/lye/crud"
 )
 
 type UserWrapper struct {
@@ -9,12 +10,12 @@ type UserWrapper struct {
 }
 
 type User struct {
-	Id int64 `sql:"_id"`
-	Avatar string `sql:"avatar" json:"avatar"`
-	Name string `sql:"name" json:"displayName"`
-	UserId string `sql:"user_id" json:"encodedId"`
-	AccessToken string `sql:"access_token"`
-	AccessSecret string `sql:"access_secret"`
+	Id int64 `crud:"_id"`
+	Avatar string `crud:"avatar" json:"avatar"`
+	Name string `crud:"name" json:"displayName"`
+	UserId string `crud:"user_id" json:"encodedId"`
+	AccessToken string `crud:"access_token"`
+	AccessSecret string `crud:"access_secret"`
 }
 
 func UserById(db *sql.DB, id string) (*User, error) {
@@ -30,34 +31,26 @@ func UserById(db *sql.DB, id string) (*User, error) {
 		return nil, nil
 	}
 
-	var b User 
-
-	if er := scan(rows, &b) ; er != nil {
+	var u User
+	if er := crud.Scan(rows, &u) ; er != nil {
 		return nil, er
 	}
 
-	return &b, nil
+	return &u, nil
 }
 
-func GetUsers(db *sql.DB) ([]*User, error) {
+func GetUsers(db *sql.DB) ([]User, error) {
 	q := "SELECT * FROM users"
 
 	rows, er := db.Query(q)
 	if er != nil {
 		return nil, er
 	}
-	defer rows.Close()
 
-	users := []*User{}
+	users := []User{}
 
-	for rows.Next() {
-		var b User
-
-		if er := scan(rows, &b) ; er != nil {
-			return nil, er
-		}
-
-		users = append(users, &b)
+	if er := crud.ScanAll(rows, &users) ; er != nil {
+		return nil, er
 	}
 
 	return users, nil
@@ -80,10 +73,10 @@ func installUserTable(db *sql.DB) error {
 
 func (u *User) Save(db *sql.DB) error {
 	if u.Id > 0 {
-		return update(db, "users", "_id", u)
+		return crud.Update(db, "users", "_id", u)
 	}
 
-	id, er := insert(db, "users", "_id", u)
+	id, er := crud.Insert(db, "users", "_id", u)
 	if er != nil {
 		return er
 	}
